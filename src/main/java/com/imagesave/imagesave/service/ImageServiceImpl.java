@@ -24,7 +24,7 @@ public class ImageServiceImpl implements ImageService{
     @Override
     public ApiResponse<?> getImages() {
         List<Image> images = imageRepo.findAll();
-        if(images.isEmpty()){
+        if(images == null){
             throw new IllegalArgumentException("No images found");
         }
         return ApiResponse.success(images, "Image found");
