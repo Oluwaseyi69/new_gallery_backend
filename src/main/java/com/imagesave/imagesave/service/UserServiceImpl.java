@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
 
     private static User buildUser() {
         User user = new User();
-        user.setUsername("HusWife");
-        user.setPassword("HusWife2024");
+        user.setUsername("AOG");
+        user.setPassword("AOG2024");
         return user;
     }
 
