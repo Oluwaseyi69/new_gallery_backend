@@ -36,6 +36,15 @@ public class ImageController {
     }
 
 
+    @GetMapping("/file/images")
+    public ApiResponse<?> getImagesFromFile() {
+        try {
+            return imageService.getImagesFromFile();
+        } catch (Exception e) {
+            return ApiResponse.error(e.getMessage());
+        }
+    }
+
 
 
 
