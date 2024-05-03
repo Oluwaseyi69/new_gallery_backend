@@ -4,6 +4,8 @@ import com.imagesave.imagesave.data.models.Image;
 import com.imagesave.imagesave.data.repository.ImageRepo;
 import com.imagesave.imagesave.dtos.ApiResponse;
 import com.imagesave.imagesave.dtos.UploadRequest;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -15,16 +17,23 @@ import java.util.List;
 
 
 @Service
+@Slf4j
+@AllArgsConstructor
 public class ImageServiceImpl implements ImageService{
 
-    private ImageRepo imageRepo;
+    private final ImageRepo imageRepo;
 
     @Override
     public ApiResponse<?> upload(UploadRequest request){
+        log.info("Uploading image");
         Image image = createImage(request);
+        log.info("Image created");
         imageRepo.save(image);
+        log.info("Image saved");
         String content = image.getLink();
+        log.info("Content of image: {}", content);
         writeToFile(content);
+        log.info("Image saved");
         return ApiResponse.success(null, "Image uploaded successfully");
     }
 

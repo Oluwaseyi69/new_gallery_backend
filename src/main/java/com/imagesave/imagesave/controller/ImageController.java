@@ -5,20 +5,20 @@ import com.imagesave.imagesave.dtos.UploadRequest;
 import com.imagesave.imagesave.service.ImageService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
+@Slf4j
 public class ImageController {
 
     private ImageService imageService;
 
     @PostMapping("/upload")
-    public ApiResponse<?> saveImage(UploadRequest uploadRequest) {
+    public ApiResponse<?> saveImage(@RequestBody UploadRequest uploadRequest) {
+        log.info("Upload request: {}", uploadRequest);
         try {
             return imageService.upload(uploadRequest);
         } catch (Exception e) {
@@ -35,7 +35,6 @@ public class ImageController {
         }
     }
 
-
     @GetMapping("/file/images")
     public ApiResponse<?> getImagesFromFile() {
         try {
@@ -44,8 +43,5 @@ public class ImageController {
             return ApiResponse.error(e.getMessage());
         }
     }
-
-
-
 
 }
