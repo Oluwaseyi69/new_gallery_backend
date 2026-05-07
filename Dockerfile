@@ -1,7 +1,10 @@
-FROM eclipse-temurin:17-jdk AS build
-COPY . .
-RUN mvn clean install -DskipTests
+FROM maven:3.9.12-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jre
-COPY --from=build target/*.jar app.jar
-ENTRYPOINT ["java", "-jar",  "app.jar"]
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
