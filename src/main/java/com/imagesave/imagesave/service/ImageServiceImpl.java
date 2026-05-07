@@ -34,7 +34,7 @@ public class ImageServiceImpl implements ImageService{
         log.info("Content of image: {}", content);
         writeToFile(content);
         log.info("Image saved");
-        return ApiResponse.success(null, "Image uploaded successfully");
+        return ApiResponse.success(image, "Image uploaded successfully");
     }
 
     @Override

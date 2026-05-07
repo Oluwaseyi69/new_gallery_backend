@@ -19,6 +19,8 @@ public class ImageController {
     @PostMapping("/upload")
     public ApiResponse<?> saveImage(@RequestBody UploadRequest uploadRequest) {
         log.info("Upload request: {}", uploadRequest);
+        log.info("Name: {}", uploadRequest.getName());
+        log.info("Link: {}", uploadRequest.getLink());
         try {
             return imageService.upload(uploadRequest);
         } catch (Exception e) {
