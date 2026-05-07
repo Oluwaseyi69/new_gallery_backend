@@ -1,7 +1,7 @@
-FROM maven:3.8.7 as build
+FROM eclipse-temurin:17-jdk AS build
 COPY . .
 RUN mvn clean install -DskipTests
 
-FROM openjdk:17
+FROM eclipse-temurin:17-jre
 COPY --from=build target/*.jar app.jar
 ENTRYPOINT ["java", "-jar",  "app.jar"]

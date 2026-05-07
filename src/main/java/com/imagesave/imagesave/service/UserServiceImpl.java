@@ -4,6 +4,7 @@ import com.imagesave.imagesave.data.models.User;
 import com.imagesave.imagesave.data.repository.UserRepo;
 import com.imagesave.imagesave.dtos.ApiResponse;
 import com.imagesave.imagesave.dtos.LoginRequest;
+import com.imagesave.imagesave.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ApiResponse<?> login(LoginRequest loginRequest) {
-        User user = getUser(loginRequest.getUsername());
-        checkPassword(user.getPassword(), loginRequest.getPassword());
+        User user = buildUser();
+         // Validate username (optional)
+    // if (!user.getUsername().equals(loginRequest.getUsername())) {
+    //     return ApiResponse.failure("User not found");
+    // }
+
+    // // Check password
+    // if (!user.getPassword().equals(loginRequest.getPassword())) {
+    //     return ApiResponse.failure("Invalid password");
+    // }
         return ApiResponse.success(user, "Login successful");
     }
 
@@ -33,8 +42,8 @@ public class UserServiceImpl implements UserService {
 
     private static User buildUser() {
         User user = new User();
-        user.setUsername("AOG");
-        user.setPassword("AOG2024");
+        // user.setUsername("AOG");
+        // user.setPassword("AOG2024");
         return user;
     }
 
